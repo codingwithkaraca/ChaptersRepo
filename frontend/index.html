@@ -1,18 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Search</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-<div class="container">
-    <h1>NEU Book Search</h1>
-    <input type="text" id="search-input" placeholder="Search for books...">
-    <button onclick="searchBooks()">Search</button>
-    <div id="results"></div>
-</div>
-<script src="script.js"></script>
+
+
+    <div class="container">
+        <h1>NEU Book Search</h1>
+        <input type="text" id="search-input" placeholder="Search for books...">
+        <button onclick="searchBooks()">Search</button>
+        <div id="results">
+
+            <div class="table-result">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Chapter Title</th>
+                            <th scope="col">Author Name</th>
+                            <th scope="col">Book Name</th>
+                            <th scope="col">Edition</th>
+                            <th scope="col">Pub. Date</th>
+                            <th scope="col">Imprint</th>
+                            <th scope="col">Pages</th>
+                            <th scope="col">eBook ISBN</th>
+                            <th scope="col">Sdg</th>
+                            <th scope="col">Abstract</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">Cover Image</th>
+                            <th scope="col">Pdf</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td colspan="2"></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="./script.js"></script>
+
 </body>
+
 </html>
