@@ -1,11 +1,42 @@
-*{
-    
-    margin: 0;
-    padding: 0 ;
-    box-sizing: border-box;
-
+nav a{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400 !important;
 }
 
+
+.navbar{
+    background-color: #e3f2fd;
+    height: 166px;
+}
+
+.carousel{
+    height: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 .col-1  {width: 8.33%;	}
 .col-2  {width: 16.66%;	}
 .col-3  {width: 25%;	}
@@ -18,13 +49,4 @@
 .col-10 {width: 83.33%;	}
 .col-11 {width: 91.66%;	}
 .col-12 {width: 100%;	}
-
-
-
-.navbar{
-    background-color: #e3f2fd;
-}
-
-@media screen and (max-width: 768){
-    
-}
+ */
