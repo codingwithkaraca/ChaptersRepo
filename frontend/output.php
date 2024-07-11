@@ -1,4 +1,4 @@
-<html><head><base href="https://websim.ai/"><title>Websim.ai - Akademik Araştırma Platformu</title><style>
+<html><head><base href="#"><title>NEÜ AI - Akademik Araştırma Platformu</title><style>
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
