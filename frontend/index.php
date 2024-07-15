@@ -1,3 +1,22 @@
+<?php
+
+$host = "localhost";
+$database = "CHAPTERS";
+$username = "root";
+$password = "";
+
+$connect = mysqli_connect($host, $username, $password, $database);
+
+$sql = "SELECT id,chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
+
+$result = $connect->query($sql);
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,32 +56,40 @@
     <section id="featured-articles">
         <h2>Öne Çıkan Makaleler</h2>
         <div class="article-grid">
-            <div class="article-card">
-                <img src="https://example.com/images/quantum-computing.jpg" alt="İklim değişikliği etkilerini gösteren bir grafik" class="article-image" width="250" height="150">
-                <h3>İklim Değişikliğinin Ekonomik Etkileri</h3>
-                <p>Yazar: Doç. Dr. Emine Nihan Cici Karaboğa</p>
-                <a href="/article/quantum-computing">PDF'i Görüntüle</a>
-            </div>
-            <div class="article-card">
-                <img src="https://example.com/images/ai-ethics.jpg" alt="Yapay Zeka etiği üzerine bir konferans görseli" class="article-image" width="250" height="150">
-                <h3>Yapay Zeka ve Etik</h3>
-                <p>Yazar: Öğr. Gör. Oğuz Yılmaz</p>
-                <a href="/article/ai-ethics">PDF'i Görüntüle</a>
-            </div>
-            <div class="article-card">
-                <img src="https://example.com/images/climate-change.jpg" alt="Kuantum Bilgisayarlar üzerine bir araştırma görseli" class="article-image" width="250" height="150">
-                <h3>Kuantum Bilgisayarların Geleceği</h3>
-                <p>Yazar: Öğr. Gör. Dr. Mehmet Özkaya</p>
-                <a href="/article/climate-economics">PDF'i Görüntüle</a>
-            </div>
+
+            <?php
+
+
+            if ($result -> num_rows > 0){
+
+                while ($row = $result->fetch_assoc()){
+
+                    echo '<div class="article-card">';
+                    echo '<img src="'.$row["cover_img"]. '"  alt="'.$row["chapter_title"].'" class="article-image" width="250" height="150">';
+                    echo '<h3>'.$row["chapter_title"].'</h3>';
+                    echo '<p>'.$row["author_name"]. '</p>';
+                    echo '<a href="'.$row["url"]. '">PDFi Görüntüle</a>';
+                    echo " </div>";
+
+                    
+                }
+            }
+            else{
+                echo "0 sonuc";
+            }
+
+            $connect->close();
+
+            ?>
+            
+
         </div>
-    </section>Ï
+    </section>
 </main>
 
 <footer>
     <p>&copy; 2023 NEU.ai - Tüm hakları saklıdır.</p>
 </footer>
-
 
 
 
