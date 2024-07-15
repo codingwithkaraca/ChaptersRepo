@@ -38,7 +38,7 @@
         <h2>Öne Çıkan Makaleler</h2>
         <div class="article-grid">
             <div class="article-card">
-                <img src="https://example.com/images/quantum-computing.jpg" alt="Kuantum Bilgisayarlar üzerine bir araştırma görseli" class="article-image" width="250" height="150">
+                <img src="https://example.com/images/quantum-computing.jpg" alt="İklim değişikliği etkilerini gösteren bir grafik" class="article-image" width="250" height="150">
                 <h3>İklim Değişikliğinin Ekonomik Etkileri</h3>
                 <p>Yazar: Doç. Dr. Emine Nihan Cici Karaboğa</p>
                 <a href="/article/quantum-computing">PDF'i Görüntüle</a>
@@ -50,13 +50,13 @@
                 <a href="/article/ai-ethics">PDF'i Görüntüle</a>
             </div>
             <div class="article-card">
-                <img src="https://example.com/images/climate-change.jpg" alt="İklim değişikliği etkilerini gösteren bir grafik" class="article-image" width="250" height="150">
+                <img src="https://example.com/images/climate-change.jpg" alt="Kuantum Bilgisayarlar üzerine bir araştırma görseli" class="article-image" width="250" height="150">
                 <h3>Kuantum Bilgisayarların Geleceği</h3>
                 <p>Yazar: Öğr. Gör. Dr. Mehmet Özkaya</p>
                 <a href="/article/climate-economics">PDF'i Görüntüle</a>
             </div>
         </div>
-    </section>
+    </section>Ï
 </main>
 
 <footer>
