@@ -40,7 +40,7 @@
                 $host = 'localhost';
                 $db = 'CHAPTERS';
                 $user = 'root';
-                $pass = '1234567890';
+                $pass = '';
 
                 // Veritabanına bağlan
                 $conn = new mysqli($host, $user, $pass, $db);
