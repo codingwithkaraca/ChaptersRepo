@@ -16,12 +16,12 @@ if (isset($_GET['query'])) {
     $search_query = $_GET['query'];
 }
 
-$sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE book_name LIKE ?";
-$stmt = $connect->prepare($sql);
+$sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE chapter_title LIKE ?";
+$statement = $connect->prepare($sql);
 $search_term = '%' . $search_query . '%';
-$stmt->bind_param("s", $search_term);
-$stmt->execute();
-$result = $stmt->get_result();
+$statement->bind_param("s", $search_term);
+$statement->execute();
+$result = $statement->get_result();
 
 
 ?>
@@ -60,7 +60,7 @@ $result = $stmt->get_result();
 <main>
     <section id="home" class="search-container">
         <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
-        <form action="/search" method="GET">
+        <form action="./index.php" method="GET">
             <input type="text" name="query" placeholder="Anahtar kelime, yazar veya konu girin" class="search-input">
             <button type="submit" class="search-button">Ara</button>
         </form>
