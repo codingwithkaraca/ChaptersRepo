@@ -7,9 +7,22 @@ $password = "";
 
 $connect = mysqli_connect($host, $username, $password, $database);
 
-$sql = "SELECT id,chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
+if (!$connect){
+    die("Bağlantı hatası :". mysqli_connect_error());
+}
 
-$result = $connect->query($sql);
+$search_query = "";
+if (isset($_GET['query'])) {
+    $search_query = $_GET['query'];
+}
+
+$sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE book_name LIKE ?";
+$stmt = $connect->prepare($sql);
+$search_term = '%' . $search_query . '%';
+$stmt->bind_param("s", $search_term);
+$stmt->execute();
+$result = $stmt->get_result();
+
 
 ?>
 
