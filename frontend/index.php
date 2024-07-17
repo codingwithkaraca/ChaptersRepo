@@ -27,9 +27,6 @@ $result = $statement->get_result();
 ?>
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
