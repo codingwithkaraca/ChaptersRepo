@@ -16,10 +16,10 @@ if (isset($_GET['query'])) {
     $search_query = $_GET['query'];
 }
 
-$sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE chapter_title LIKE ?";
+$sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE chapter_title LIKE ? OR author_name LIKE ? OR book_name LIKE ? OR abstract LIKE ? OR pub_date LIKE ? OR imprint LIKE ? OR ebook_isbn LIKE ?";
 $statement = $connect->prepare($sql);
 $search_term = '%' . $search_query . '%';
-$statement->bind_param("s", $search_term);
+$statement->bind_param("sssssss", $search_term, $search_term, $search_term, $search_term, $search_term, $search_term, $search_term);
 $statement->execute();
 $result = $statement->get_result();
 
@@ -50,7 +50,7 @@ $result = $statement->get_result();
 
 <nav>
     <ul>
-        <li><a href="#home">Ana Sayfa</a></li>
+        <li><a href="./index.php">Ana Sayfa</a></li>
         <li><a href="#search">Arama</a></li>
         <li><a href="#categories">Kategoriler</a></li>
         <li><a href="#about">Hakkımızda</a></li>
