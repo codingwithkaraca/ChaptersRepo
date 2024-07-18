@@ -35,19 +35,19 @@ $params = [$search_term, $search_term, $search_term, $search_term, $search_term,
 if ($category != 'all') { // Kategori "all" değilse, belirli bir kategori için sorguyu güncelle
     switch ($category) {
         case 'bookname':
-            $sql .= " AND book_name LIKE ?"; // Kitap adına göre filtrele
+            $sql .= " book_name LIKE ?"; // Kitap adına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
         case 'authorname':
-            $sql .= " AND author_name LIKE ?"; // Yazar adına göre filtrele
+            $sql .= " author_name LIKE ?"; // Yazar adına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
         case 'publisher':
-            $sql .= " AND imprint LIKE ?"; // Yayınevine göre filtrele
+            $sql .= " imprint LIKE ?"; // Yayınevine göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
         case 'summary':
-            $sql .= " AND abstract LIKE ?"; // Konu başlıklarına göre filtrele
+            $sql .= " abstract LIKE ?"; // Konu başlıklarına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
     }
