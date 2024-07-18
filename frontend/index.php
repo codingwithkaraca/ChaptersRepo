@@ -175,7 +175,7 @@ $result = $statement->get_result(); // Sonuçları al
 <body>
 
 <header>
-    <img src="./assets/images/logo.png" alt="Logo" class="logo"> <!-- Logo resmi -->
+    <img src="./assets/images/neü_logo.png" alt="Logo" class="logo"> <!-- Logo resmi -->
     <h1>NEU AI</h1>
     <p>Akademik Dünya için Kapsamlı Araştırma Platformu</p> <!-- Açıklama -->
 </header>
