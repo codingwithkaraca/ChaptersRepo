@@ -34,11 +34,11 @@ $params = [$search_term, $search_term, $search_term, $search_term, $search_term,
 
 if ($category != 'all') { // Kategori "all" değilse, belirli bir kategori için sorguyu güncelle
     switch ($category) {
-        case 'chapter':
+        case 'bookname':
             $sql .= " AND book_name LIKE ?"; // Kitap adına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
-        case 'author':
+        case 'authorname':
             $sql .= " AND author_name LIKE ?"; // Yazar adına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
@@ -99,11 +99,18 @@ $result = $statement->get_result(); // Sonuçları al
             <!-- Arama formu-->
             <input type="text" name="query" placeholder="Anahtar kelime, yazar veya konu girin" class="search-input">
             <select name="category" class="category-dropdown">
-                <option value="all">Tüm kategoriler</option>
-                <option value="chapter">Kitap</option>
-                <option value="author">Yazar</option>
+                <option value="all">Tüm Alanlar</option>
+                <option value="bookname">Kitap</option>
+                <option value="authorname">Yazar</option>
                 <option value="publisher">Yayınevi</option>
-                <option value="summary">Konu başlıkları</option>
+                <option value="summary">Özet</option>
+            </select>
+            <select name="category" class="category-dropdown">
+                <option value="all">SDG's</option>
+                <option value="bookname"></option>
+                <option value="authorname">Yazar</option>
+                <option value="publisher">Yayınevi</option>
+                <option value="summary">Özet</option>
             </select>
             <button type="submit" class="search-button">Ara</button>
         </form>
