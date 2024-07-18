@@ -50,6 +50,10 @@ if ($category != 'all') { // Kategori "all" değilse, belirli bir kategori için
             $sql .= " AND abstract LIKE ?"; // Konu başlıklarına göre filtrele
             $params[] = $search_term; // Ek parametre ekle
             break;
+        case 'ebookisbn':
+            $sql .= " AND ebook_isbn LIKE ?"; // Konu başlıklarına göre filtrele
+            $params[] = $search_term; // Ek parametre ekle
+            break;
     }
 }
 
@@ -97,13 +101,14 @@ $result = $statement->get_result(); // Sonuçları al
         <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
         <form action="./index.php" method="GET">
             <!-- Arama formu-->
-            <input type="text" name="query" placeholder="Anahtar kelime, yazar veya konu girin" class="search-input">
+            <input type="text" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin" class="search-input">
             <select name="category" class="category-dropdown">
                 <option value="all">Tüm Alanlar</option>
                 <option value="bookname">Kitap</option>
                 <option value="authorname">Yazar</option>
                 <option value="publisher">Yayınevi</option>
                 <option value="summary">Özet</option>
+                <option value="ebookisbn">Ebook ISBN</option>
             </select>
             <select id="sdg-select" name="sdg-select">
                 <option value="">SDG'ler</option>
