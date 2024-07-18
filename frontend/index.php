@@ -23,9 +23,7 @@ $statement->bind_param("sssssss", $search_term, $search_term, $search_term, $sea
 $statement->execute();
 $result = $statement->get_result();
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +36,6 @@ $result = $statement->get_result();
     <title>NEU AI</title>
 </head>
 <body>
-
 
 <header>
     <h1>NEU AI</h1>
@@ -69,7 +66,6 @@ $result = $statement->get_result();
 
             <?php
 
-
             if ($result -> num_rows > 0){
 
                 while ($row = $result->fetch_assoc()){
@@ -80,18 +76,16 @@ $result = $statement->get_result();
                     echo '<p>'.$row["author_name"]. '</p>';
                     echo '<a href="'.$row["url"]. '">PDFi Görüntüle</a>';
                     echo " </div>";
-
                     
                 }
             }
             else{
-                echo "0 sonuc";
+                echo "<p>Sonuç bulunamadı</p>";
             }
 
             $connect->close();
 
             ?>
-            
 
         </div>
     </section>
@@ -100,8 +94,6 @@ $result = $statement->get_result();
 <footer>
     <p>&copy; 2023 NEU.ai - Tüm hakları saklıdır.</p>
 </footer>
-
-
 
 </body>
 </html>
