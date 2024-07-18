@@ -6,11 +6,12 @@
             <input type="text" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin" class="search-input">
             <select name="category" class="category-dropdown">
                 <option value="all">Tüm Alanlar</option>
-                <option value="bookname">Kitap</option>
-                <option value="authorname">Yazar</option>
-                <option value="publisher">Yayınevi</option>
-                <option value="summary">Özet</option>
-                <option value="ebookisbn">Ebook ISBN</option>
+                <option value="chapter_title">Makale</option>
+                <option value="book_name">Kitap</option>
+                <option value="author_name">Yazar</option>
+                <option value="imprint">Yayınevi</option>
+                <option value="abstract">Özet</option>
+                <option value="ebook_isbn">Ebook ISBN</option>
             </select>
             <select id="sdg-select" name="sdg-select">
                 <option value="">SDG'ler</option>

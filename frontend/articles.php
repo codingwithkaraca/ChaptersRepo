@@ -1,5 +1,6 @@
 <section id="featured-articles">
     <h2>Öne Çıkan Makaleler</h2>
+    <h4>Toplam çıkan sonuç sayısı: <?php echo $num_rows  ?></h4>
     <div class="article-grid">
 
         <?php
