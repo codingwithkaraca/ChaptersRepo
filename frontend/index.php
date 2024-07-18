@@ -1,56 +1,70 @@
 <?php
 
+// Veritabanı bağlantı bilgilerini tanımlama
 $host = "localhost";
 $database = "CHAPTERS";
 $username = "root";
 $password = "";
 
+//MySQL veritabanına bağlanma
 $connect = mysqli_connect($host, $username, $password, $database);
 
+// Bağlantı hatası kontrolü
 if (!$connect){
     die("Bağlantı hatası :". mysqli_connect_error());
 }
 
-$search_query = "";
-$category = "";
+// Arama sorgusunu alma
+$search_query = ""; // Varsayılan olarak boş arama sorgusu
+$category = ""; // Varsayılan olarak boş kategori
 if (isset($_GET['query'])) {
-    $search_query = $_GET['query'];
+    $search_query = $_GET['query']; // GET parametresinden arama sorgusunu al
 }
 if (isset($_GET['category'])) {
-    $category = $_GET['category'];
+    $category = $_GET['category']; // GET parametresinden kategori değerini al
 }
 
+// SQL sorgusunu tanımlama
 $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters WHERE (chapter_title LIKE ? OR author_name LIKE ? OR book_name LIKE ? OR pub_date LIKE ? OR imprint LIKE ? OR ebook_isbn LIKE ?)";
-$search_term = '%' . $search_query . '%';
 
-$params = [$search_term, $search_term, $search_term, $search_term, $search_term, $search_term];
+// Arama terimini joker karakterlerle tanımlama
+$search_term = '%' . $search_query . '%'; // Arama terimini % ile çevrele
 
-if ($category != 'all') {
+$params = [$search_term, $search_term, $search_term, $search_term, $search_term, $search_term]; // Arama terimlerini diziye ekle
+
+if ($category != 'all') { // Kategori "all" değilse, belirli bir kategori için sorguyu güncelle
     switch ($category) {
         case 'chapter':
-            $sql .= " AND book_name LIKE ?";
-            $params[] = $search_term;
+            $sql .= " AND book_name LIKE ?"; // Kitap adına göre filtrele
+            $params[] = $search_term; // Ek parametre ekle
             break;
         case 'author':
-            $sql .= " AND author_name LIKE ?";
-            $params[] = $search_term;
+            $sql .= " AND author_name LIKE ?"; // Yazar adına göre filtrele
+            $params[] = $search_term; // Ek parametre ekle
             break;
         case 'publisher':
-            $sql .= " AND imprint LIKE ?";
-            $params[] = $search_term;
+            $sql .= " AND imprint LIKE ?"; // Yayınevine göre filtrele
+            $params[] = $search_term; // Ek parametre ekle
             break;
         case 'summary':
-            $sql .= " AND abstract LIKE ?";
-            $params[] = $search_term;
+            $sql .= " AND abstract LIKE ?"; // Konu başlıklarına göre filtrele
+            $params[] = $search_term; // Ek parametre ekle
             break;
     }
 }
 
-$statement = $connect->prepare($sql);
-$types = str_repeat('s', count($params)); // create a string with 's' repeated for each parameter
-$statement->bind_param($types, ...$params);
-$statement->execute();
-$result = $statement->get_result();
+// SQL sorgusunu hazırlama
+$statement = $connect->prepare($sql); // Hazırlanan sorguyu oluştur
+$types = str_repeat('s', count($params)); // Parametre türlerini tanımla ('s' string için)
+
+// Hazırlanan sorguya arama terimlerini bağlama
+$statement->bind_param($types, ...$params); // Parametreleri bağla
+
+// Sorguyu çalıştırma
+$statement->execute(); // Sorguyu çalıştır
+
+// Sorgu sonuçlarını alma
+$result = $statement->get_result(); // Sonuçları al
 
 ?>
 
@@ -82,6 +96,7 @@ $result = $statement->get_result();
     <section id="home" class="search-container">
         <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
         <form action="./index.php" method="GET">
+            <!-- Arama formu-->
             <input type="text" name="query" placeholder="Anahtar kelime, yazar veya konu girin" class="search-input">
             <select name="category" class="category-dropdown">
                 <option value="all">Tüm kategoriler</option>
@@ -99,18 +114,23 @@ $result = $statement->get_result();
         <div class="article-grid">
 
             <?php
+
+            // Arama sonuçları varsa bunları görüntüleme
             if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="article-card">';
-                    echo '<img src="'.$row["cover_img"]. '"  alt="'.$row["chapter_title"].'" class="article-image" width="250" height="150">';
-                    echo '<h3>'.$row["chapter_title"].'</h3>';
-                    echo '<p>'.$row["author_name"]. '</p>';
-                    echo '<a href="'.$row["url"]. '">PDFi Görüntüle</a>';
+                while ($row = $result->fetch_assoc()) { // Her sonuç satırını al
+                    echo '<div class="article-card">'; // Makale kartı oluştur
+                    echo '<img src="'.$row["cover_img"]. '"  alt="'.$row["chapter_title"].'" class="article-image" width="250" height="150">'; // Kapak resmini ekle
+                    echo '<h3>'.$row["chapter_title"].'</h3>'; // Bölüm başlığını ekle
+                    echo '<p>'.$row["author_name"]. '</p>'; // Yazar adını ekle
+                    echo '<a href="'.$row["url"]. '">PDFi Görüntüle</a>'; // PDF bağlantısını ekle
                     echo '</div>';
                 }
             } else {
-                echo "0 sonuç";
+                // Sonuç bulunamazsa mesaj gösterme
+                echo "<p>Sonuç bulunamadı</p>";
             }
+
+            // Veritabanı bağlantısını kapatma
             $connect->close();
             ?>
 
