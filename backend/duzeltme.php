@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taylor F</title>
 
-    <link rel="stylesheet" href="./assets/css/duzeltme.css">
-    <link rel="stylesheet" href="./assets/bootstrap/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../frontend/assets/css/duzeltme.css">
+    <link rel="stylesheet" href="../frontend/assets/bootstrap/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontend/assets/bootstrap-icons/font/bootstrap-icons.min.css">
 
 
 
@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="./assets/images/logo.svg" alt="taylor francis logo" class="img-fluid">
+                <img src="../frontend/assets/images/logo.svg" alt="taylor francis logo" class="img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -76,13 +76,13 @@
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="./assets/images/tf1.webp" class="d-block w-100" alt="...">
+                <img src="../frontend/assets/images/tf1.webp" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="./assets/images/tf2.webp" class="d-block w-100" alt="...">
+                <img src="../frontend/assets/images/tf2.webp" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="./assets/images/tf3.webp" class="d-block w-100" alt="...">
+                <img src="../frontend/assets/images/tf3.webp" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -99,7 +99,7 @@
 </div>
 
 
-<script src="./assets/bootstrap/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../frontend/assets/bootstrap/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
