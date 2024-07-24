@@ -23,7 +23,7 @@ $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imp
 
 if ($query != '') {
     if ($category == 'all') {
-        $sql .= " WHERE chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%' ";
+        $sql .= " WHERE chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%'";
     } else {
         $sql .= " WHERE $category LIKE '%$query%'";
     }
