@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kütüphane Yönetim Sistemi</title>
+    <link rel="stylesheet" href="styles.css"> <!-- CSS dosyasının yolu -->
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Kütüphane Logo" class="logo"> <!-- Logo resmi -->
+    <h1>Kütüphane Yönetim Sistemi</h1> <!-- Başlık -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="catalog.html">Katalog</a></li>
+            <li><a href="categories.html">Kategoriler</a></li>
+            <li><a href="membership.html">Üyelik</a></li>
+            <li><a href="contact.html">İletişim</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="search">
+        <h2>Kitapları Ara</h2>
+        <form action="search_results.html" method="GET">
+            <input type="text" name="query" placeholder="Kitap başlığı, yazar veya ISBN girin" class="search-input">
+            <select name="category" class="category-dropdown">
+                <option value="all">Tüm Kategoriler</option>
+                <option value="fiction">Roman</option>
+                <option value="science">Bilim</option>
+                <option value="history">Tarih</option>
+                <!-- Daha fazla kategori ekleyebilirsiniz -->
+            </select>
+            <button type="submit" class="search-button">Ara</button>
+        </form>
+    </section>
+
+    <section id="featured-books">
+        <h2>Öne Çıkan Kitaplar</h2>
+        <div class="book-grid">
+            <!-- Öne çıkan kitapların listeleneceği alan -->
+            <div class="book-card">
+                <img src="book1.jpg" alt="Kitap 1" class="book-image">
+                <h3>Kitap Başlığı 1</h3>
+                <p>Yazar: Yazar Adı 1</p>
+            </div>
+            <div class="book-card">
+                <img src="book2.jpg" alt="Kitap 2" class="book-image">
+                <h3>Kitap Başlığı 2</h3>
+                <p>Yazar: Yazar Adı 2</p>
+            </div>
+            <!-- Daha fazla kitap kartı ekleyebilirsiniz -->
+        </div>
+    </section>
+
+    <section id="new-arrivals">
+        <h2>Yeni Eklenen Kitaplar</h2>
+        <div class="new-arrivals-grid">
+            <!-- Yeni eklenen kitapların listeleneceği alan -->
+            <div class="new-book-card">
+                <img src="newbook1.jpg" alt="Yeni Kitap 1" class="new-book-image">
+                <h3>Yeni Kitap Başlığı 1</h3>
+                <p>Yazar: Yeni Yazar Adı 1</p>
+            </div>
+            <div class="new-book-card">
+                <img src="newbook2.jpg" alt="Yeni Kitap 2" class="new-book-image">
+                <h3>Yeni Kitap Başlığı 2</h3>
+                <p>Yazar: Yeni Yazar Adı 2</p>
+            </div>
+            <!-- Daha fazla yeni kitap kartı ekleyebilirsiniz -->
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Kütüphane Yönetim Sistemi - Tüm hakları saklıdır.</p>
+    <p>Adres: Kütüphane Adresi, Telefon: 123-456-7890, E-posta: info@kutuphane.com</p>
+    <div class="social-media">
+        <a href="facebook.com">Facebook</a>
+        <a href="twitter.com">Twitter</a>
+        <a href="instagram.com">Instagram</a>
+    </div>
+</footer>
+
+</body>
+</html>

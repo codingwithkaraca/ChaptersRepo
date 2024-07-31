@@ -77,92 +77,178 @@ $result = $statement->get_result(); // Sonuçları al
     <title>NEU AI</title>
     <!-- CSS stil kurallarını ekleme -->
     <style>
-        /* Genel sayfa stillemesi */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+        /* Genel sayfa stilemesi */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Arka plan rengi */
+    color: #333; /* Metin rengi */
+}
 
-        /* Başlık alanı stillemesi */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fffefe; /* Arka plan rengi #0b0a0a */
-            padding: 10px 0; /* Üst ve alt boşluk */
-            flex-direction: column;
-            text-align: center;
-        }
+/* Başlık alanı stilemesi */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #343a40; /* Başlık arka plan rengi */
+    color: #fff; /* Başlık metin rengi */
+    padding: 20px 10%; /* Üst ve alt boşluk, yanlarda %10 boşluk */
+}
 
-        /* Logo stillemesi */
-        .logo {
-            height: 80px; /* Logonun yüksekliği */
-            width: auto; /* Oranını koruması için genişliği otomatik */
-            margin-bottom: 10px; /* Logo ve başlık arasına boşluk ekle */
-        }
+.logo {
+    height: 50px; /* Logo yüksekliği */
+    width: auto; /* Oranını koruması için genişliği otomatik */
+}
 
-        /* Navigasyon menüsü stillemesi */
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            background-color: #333; /* Menü öğeleri arasındaki  boşluk */
-        }
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between; /* Menü öğelerini yay */
+}
 
-        nav ul li {
-            margin: 0 15px; /* Menü öğeleri arasındaki  boşluk */
-        }
+nav ul li {
+    margin: 0 15px; /* Menü öğeleri arasındaki boşluk */
+}
 
-        nav ul li a {
-            text-decoration: none;
-            color: white; /* Menü link rengi */
-            padding: 14px 20px; /* Link iç boşlukları */
-            display: block;
-        }
+nav ul li a {
+    text-decoration: none;
+    color: white; /* Menü link rengi */
+    padding: 14px 20px; /* Link iç boşlukları */
+    display: block;
+    transition: background-color 0.3s; /* Arka plan rengi geçiş efekti */
+}
 
-        nav ul li a:hover {
-            background-color: #575757; /* Link üzerine geldiğinde arka plan rengi */
-        }
+nav ul li a:hover {
+    background-color: #495057; /* Link üzerine geldiğinde arka plan rengi */
+}
 
-        /* Ana içerik alanı stillemesi */
-        main {
-            padding: 20px;
-        }
+/* Ana içerik alanı stilemesi */
+main {
+    padding: 20px 10%;
+}
 
-        /* Arama kutusu ve düğmeleri stillemesi */
-        .search-container {
-            text-align: center;
-            margin: 20px 0; /* Üst ve alt boşluk */
-        }
+/* Arama kutusu ve düğmeleri stilemesi */
+.search-container {
+    text-align: center;
+    margin: 20px 0; /* Üst ve alt boşluk */
+}
 
-        .search-input, .category-dropdown, .search-button {
-            padding: 10px;
-            margin: 10px 5px; /* Kenar boşlukları */
-        }
+.search-input, .category-dropdown, .search-button, #sdg-select {
+    padding: 10px;
+    margin: 10px 5px; /* Kenar boşlukları */
+    border-radius: 5px; /* Köşeleri yuvarlat */
+    border: 1px solid #ddd; /* Kenarlık */
+    font-size: 16px; /* Yazı boyutu */
+}
 
-        /* Öne çıkan makaleler alanı stillemesi */
-        #featured-articles {
-            margin-top: 20px; /* Üst boşluk */
-        }
+.search-button {
+    background-color: #007bff; /* Buton arka plan rengi */
+    color: white; /* Buton metin rengi */
+    border: none; /* Kenarlık yok */
+    cursor: pointer; /* Fare işareti */
+    transition: background-color 0.3s; /* Arka plan rengi geçiş efekti */
+}
 
-        .article-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px; /* Grid öğeleri arası boşluk */
-        }
+.search-button:hover {
+    background-color: #0056b3; /* Buton hover arka plan rengi */
+}
 
-        .article-card {
-            border: 1px solid #ddd; /* Makale kartı kenarlık rengi ve kalınlığı */
-            padding: 15px; /* İç boşluk */
-            text-align: center;
-        }
+/* Öne çıkan makaleler alanı stilemesi */
+#featured-articles {
+    margin-top: 20px; /* Üst boşluk */
+}
 
-        .article-image {
-            max-width: 100%;
-            height: auto; /* Resim boyutlandırması */
-        }
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px; /* Grid öğeleri arası boşluk */
+}
+
+.article-card {
+    border: 1px solid #ddd; /* Makale kartı kenarlık rengi ve kalınlığı */
+    padding: 15px; /* İç boşluk */
+    text-align: center;
+    background-color: white; /* Arka plan rengi */
+    border-radius: 10px; /* Köşeleri yuvarlat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    transition: transform 0.3s; /* Kart üzerine gelince büyütme efekti */
+}
+
+.article-card:hover {
+    transform: translateY(-10px); /* Kart üzerine gelince yukarı kayma efekti */
+}
+
+.article-image {
+    max-width: 100%;
+    height: auto; /* Resim boyutlandırması */
+    border-radius: 10px 10px 0 0; /* Üst köşeleri yuvarlat */
+}
+
+.article-card h3 {
+    margin: 15px 0 10px; /* Başlık arası boşluk */
+    font-size: 18px; /* Başlık yazı boyutu */
+    color: #007bff; /* Başlık rengi */
+}
+
+.article-card p {
+    margin: 0 0 15px; /* Yazar adı arası boşluk */
+    color: #6c757d; /* Yazar adı rengi */
+}
+
+.article-card a {
+    text-decoration: none;
+    color: #007bff; /* Link rengi */
+    border: 1px solid #007bff; /* Kenarlık */
+    padding: 10px 20px; /* İç boşluk */
+    border-radius: 5px; /* Köşeleri yuvarlat */
+    transition: background-color 0.3s, color 0.3s; /* Renk geçiş efekti */
+}
+
+.article-card a:hover {
+    background-color: #007bff; /* Link hover arka plan rengi */
+    color: white; /* Link hover metin rengi */
+}
+
+/* Sayfa alt kısmı stilemesi */
+footer {
+    text-align: center;
+    padding: 20px; /* İç boşluk */
+    background-color: #343a40; /* Arka plan rengi */
+    color: white; /* Yazı rengi */
+}
+
+.social-media a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s; /* Renk geçiş efekti */
+}
+
+.social-media a:hover {
+    color: #007bff; /* Hover rengi */
+}
+
+/* Responsive tasarım için medya sorguları */
+@media (max-width: 768px) {
+    header, main {
+        padding: 20px 5%;
+    }
+
+    .logo {
+        height: 40px; /* Mobilde logo boyutu */
+    }
+
+    nav ul {
+        flex-direction: column; /* Mobilde menüyü dikey yap */
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Menü öğeleri arasındaki boşluk */
+    }
+}
+
 
         /* Sayfa alt kısmı stillemesi */
         footer {
@@ -264,4 +350,3 @@ $result = $statement->get_result(); // Sonuçları al
 
 </body>
 </html>
-
