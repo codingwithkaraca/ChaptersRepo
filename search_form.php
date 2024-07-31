@@ -1,7 +1,7 @@
 <main>
     <section id="home" class="search-container">
         <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
-        <form action="./index.php" method="GET">
+        <form action="index.php" method="GET">
             <!-- Arama formu-->
             <input type="text" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin" class="search-input">
             <select name="category" class="category-dropdown">

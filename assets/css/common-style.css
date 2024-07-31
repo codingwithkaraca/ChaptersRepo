@@ -1,0 +1,60 @@
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-padding-side {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+    clear: both;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+    clear: both;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+    clear: both;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+    clear: both;
+}
+
+.modal-xlg {
+    width: 90%;
+}
+
+.sub-menu-header, .sub-menu-space,.sub-menu-v-line {
+    border: solid 1px #ccc;
+    border-top: none;
+    border-right: none;
+    height: 21px;
+    display: inline-block;
+    margin-right: 5px;
+    line-height: 10px;
+    padding: 0;
+    width: 14px;
+}
+
+.sub-menu-v-line {
+    border-bottom: none;
+    height: 24px;
+}
+
+.sub-menu-space {
+    border: none;
+    margin: 0;
+    width: 16px;
+}
