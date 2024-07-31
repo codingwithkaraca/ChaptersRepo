@@ -910,29 +910,39 @@
 
 
 <!--begin: SEARCH-BAR -->
-<div class="home-announcements-container">
-    <section class="announcements-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-md-offset-5 margin-bottom-20">
-                    <select class="form-control" name="announcement_category" id="announcement_category">
-                        <option value="1">Kurum İçi</option>
-                        <option value="2">Kurum Dışı</option>
-                        <option value="3">Diğer</option>
-                    </select>
-                </div>
+
+<div class="container">
+
+    <form>
+        <div class="row">
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Makale Ara">
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 no-padding">
-                    <div class="home-announcement-row row mt-10" id="announcement-list"></div>
-                </div>
+            <div class="col-2">
+                <select class="form-control">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
             </div>
+            <div class="col-2">
+                <select class="form-control">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </div>
+            <button type="submit" class="col-2 btn btn-primary">Ara</button>
         </div>
 
-    </section>
+
+    </form>
 </div>
+
+<!-- end: Search bar -->
+
+
+
 
 <div class="home-event-container">
     <div class="container">
