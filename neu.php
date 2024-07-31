@@ -59,6 +59,7 @@
 
 <body>
 
+<!-- begin: HEADER -->
 <div id="main-header" class="main-header">
     <div class="row">
         <div class="col-md-12">
@@ -905,9 +906,10 @@
         </div>
     </div>
 </div>
+<!--end: HEADER -->
 
 
-
+<!--begin: SEARCH-BAR -->
 <div class="home-announcements-container">
     <section class="announcements-section">
         <div class="container">
@@ -928,11 +930,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="home-announcements-header-link margin-bottom-30">
-                <a href="/duyurular">DUYURU TAKVİMİ</a>
-            </div>
-        </div>
+
     </section>
 </div>
 

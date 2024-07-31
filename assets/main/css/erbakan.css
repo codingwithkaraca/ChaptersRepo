@@ -952,16 +952,12 @@ body.modal-open {
     font-size: 17px;
 }
 
+
+/* begin: SEARCH-BAR */
 .home-announcements-container {
-    /*background-image: url(../img/bg-triangle.png);
-    background-position: center;
-    background-color: #0593b5;
-    /* padding-bottom: 20px;
-    background-attachment: fixed;
-    padding-top: 40px; */
+
     background-image: url(../img/title-bar-light-transparent.png);
     background-color: #0593b5;
-    /* padding-bottom: 20px; */
     padding-top: 40px;
 }
 
