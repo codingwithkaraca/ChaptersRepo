@@ -2076,7 +2076,6 @@ if (!$connect) {
 }
 
 
-
 $query = isset($_GET['query']) ? $_GET['query'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
@@ -2097,10 +2096,7 @@ $num_rows = $result->num_rows;
 ?>
 
 
-
-
 <!--begin: SEARCH-BAR -->
-
 <section id="home" class="search-container container mt-5">
     <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
     <form action="./neu.php" method="GET">
@@ -2151,212 +2147,32 @@ $num_rows = $result->num_rows;
             </div>
         </div>
     </form>
-</section>
-<!-- end: Search bar -->
 
-<!-- start : Content-->
-
-<section id="featured-articles">
-    <h2>Öne Çıkan Makaleler</h2>
-    <h4>Toplam çıkan sonuç sayısı: <?php echo $num_rows ?></h4>
-    <div class="article-grid">
-
-
-        <?php
-        /*
-                // Arama sonuçları varsa bunları görüntüleme
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) { // Her sonuç satırını al
-                        echo '<div class="article-card">'; // Makale kartı oluştur
-                        echo '<img src="' . $row["cover_img"] . '"  alt="' . $row["chapter_title"] . '" class="article-image" width="250" height="150">'; // Kapak resmini ekle
-                        echo '<h3>' . $row["chapter_title"] . '</h3>'; // Bölüm başlığını ekle
-                        echo '<p>' . $row["author_name"] . '</p>'; // Yazar adını ekle
-                        echo '<a href="' . $row["url"] . '">PDFi Görüntüle</a>'; // PDF bağlantısını ekle
-                        echo '</div>';
-                    }
-                } else {
-                    // Sonuç bulunamazsa mesaj gösterme
-                    echo "<p>Sonuç bulunamadı</p>";
-                }
-
-                // Veritabanı bağlantısını kapatma
-                $connect->close();
-
-               */ ?>
-
-    </div>
-</section>
-
-</main>
-
-<!-- end: Content-->
-
-
-<div class="home-event-container">
-    <div class="container">
-        <div class="home-event-row">
-
-            <?php
-
-
-            // Veritabanı bağlantısı ve sorgu kodu buraya gelecek
-
-            // Arama sonuçları varsa bunları görüntüleme
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) { // Her sonuç satırını al
-                    echo '<a class="home-event-link" href="' . $row["url"] . '" style="">';
-                    echo '    <div class="col-home-event">';
-                    echo '        <div class="home-event-box">';
-                    echo '            <img src="' . $row["cover_img"] . '" class="home-event-image">';
-                    echo '            <div class="home-event-date-box">';
-                    echo '                <div class="home-event-day">31</div>';
-                    echo '                <div class="home-event-month">Temmuz</div>';
-                    echo '                <div class="home-event-year">2024</div>';
-                    echo '            </div>';
-                    echo '            <div class="home-event-title">' . $row["chapter_title"] . '</div>';
-                    echo '        </div>';
-                    echo '    </div>';
-                    echo '</a>';
-                }
-            } else {
-                // Sonuç bulunamazsa mesaj gösterme
-                echo "<p>Sonuç bulunamadı</p>";
-            }
-
-            // Veritabanı bağlantısını kapatma
-            $connect->close();
-
-
-            ?>
-            <a class="home-event-link" href="/etkinlik/5308/neden-necmettin-erbakan-universitesi-tip-fakultesi"
-               style="">
-                <div class="col-home-event">
-                    <div class="home-event-box">
-                        <img src="https://erbakan.edu.tr/storage/images/web/events/hayatvar_afis.jpg"
-                             class="home-event-image">
-                        <div class="home-event-date-box">
-                            <div class="home-event-day">31</div>
-                            <div class="home-event-month">Temmuz</div>
-                            <div class="home-event-year">2024</div>
-                        </div>
-                        <div class="home-event-title">
-                            Neden Necmettin Erbakan &Uuml;niversitesi Tıp Fak&uuml;ltesi?
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-
-
-<div class="home-library-container">
-    <section class="library-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="home-library-header">
-                        <img class="home-library-icon" src="./assets/images/taylor-ubx.svg">
-                    </div>
-
-                    <div class="home-box-header margin-bottom-20 margin-top-30">YAYINLARIMIZ</div>
-                    <div class="home-library-row row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="panel bg-no-color panel-no-border pointer"
-                                 onclick="window.open('https://neuyayin.com/tr/online-satis/urunler/hile-ve-ic-denetim/822','_newtab');">
-                                <div class="panel-heading no-padding">
-                                    <img src="https://erbakan.edu.tr/storage/images/kitaplar/2ef974d0-0d74-4f61-a447-5786fda48e9c.jpg">
-                                </div>
-                                <div class="panel-body text-center neu-publish">
-                                    <div class="horizontal-line"></div>
-                                    Hile ve İ&ccedil; Denetim
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="panel bg-no-color panel-no-border pointer"
-                                 onclick="window.open('https://neuyayin.com/tr/online-satis/urunler/egitimde-dijitallesme/701','_newtab');">
-                                <div class="panel-heading no-padding">
-                                    <img src="https://erbakan.edu.tr/storage/images/kitaplar/05d4249f-0417-4243-87a0-737220af5768.jpg">
-                                </div>
-                                <div class="panel-body text-center neu-publish">
-                                    <div class="horizontal-line"></div>
-                                    Eğitimde Dijitalleşme
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="panel bg-no-color panel-no-border pointer"
-                                 onclick="window.open('https://neuyayin.com/tr/online-satis/urunler/dijital-donusumun-orgutsel-yansimalari-isletme-ve-kamu-yonetimi-acisindan-farkli-degerlendirmeler/735','_newtab');">
-                                <div class="panel-heading no-padding">
-                                    <img src="https://erbakan.edu.tr/storage/images/kitaplar/34310a5e-472b-46aa-b65a-d504656eda66.jpg">
-                                </div>
-                                <div class="panel-body text-center neu-publish">
-                                    <div class="horizontal-line"></div>
-                                    Dijital D&ouml;n&uuml;ş&uuml;m&uuml;n &Ouml;rg&uuml;tsel Yansımaları (İşletme ve
-                                    Kamu Y&ouml;netimi A&ccedil;ısından Farklı Değerlendirmeler)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="panel bg-no-color panel-no-border pointer"
-                                 onclick="window.open('https://neuyayin.com/tr/online-satis/urunler/3--uluslararasi-helal-ve-saglikli-gida/595','_newtab');">
-                                <div class="panel-heading no-padding">
-                                    <img src="https://erbakan.edu.tr/storage/images/kitaplar/7f4ce675-7041-4032-9391-869ca862bf89.jpg">
-                                </div>
-                                <div class="panel-body text-center neu-publish">
-                                    <div class="horizontal-line"></div>
-                                    3. Uluslararası Helal ve Sağlıklı Gıda
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="panel bg-no-color panel-no-border pointer"
-                                 onclick="window.open('https://neuyayin.com/tr/online-satis/urunler/gelenekten-gelecege-turk-m&ucirc;sikisi--egitim--ogretim--icra/736','_newtab');">
-                                <div class="panel-heading no-padding">
-                                    <img src="https://erbakan.edu.tr/storage/images/kitaplar/1d84b34b-6f39-45ea-a8b6-d64af2db01d8.jpg">
-                                </div>
-                                <div class="panel-body text-center neu-publish">
-                                    <div class="horizontal-line"></div>
-                                    Gelenekten Geleceğe T&uuml;rk M&ucirc;sik&icirc;si, Eğitim, &Ouml;ğretim, İcra
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="text-center margin-bottom-20">
-                        <a href="/yayin-evi" class="primary-button">TÜM YAYINLAR</a>
-                    </div>
-                </div>
-            </div>
-
+    <section id="featured-articles" class="">
+        <h2>Öne Çıkan Makaleler</h2>
+        <h4>Toplam çıkan sonuç sayısı: <?php echo $num_rows ?></h4>
+        <div class="article-grid">
 
         </div>
     </section>
-</div>
-<div id="popup" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header"
-                 style="background: url('https://erbakan.edu.tr/assets/main/img/main-title-bar.png');color: #fff; font-weight: bold">
-                DUYURU
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <iframe style="width:100%" height="500" src="https://www.youtube.com/embed/ehZV8ss5okM"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
+
+</section>
+<!-- end: Search bar -->
 
 
+
+<!-- start : Content-->
+<div class="home-event-container">
+
+
+
+</div>
+<!-- end: Content-->
+
+
+
+
+<!--start: FOOTER -->
 <footer class="main-footer">
     <div class="footer-menu">
         <div class="container">
@@ -2478,6 +2294,8 @@ $num_rows = $result->num_rows;
         </div>
     </div>
 </footer>
+<!--end: FOOTER -->
+
 <style>
     .link-card {
         display: -webkit-box;
