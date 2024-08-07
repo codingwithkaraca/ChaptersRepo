@@ -37,7 +37,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css?t=v2">
     <!-- stylesheet-->
-    <link rel="stylesheet" href="./assets/main/css/bootstrap.min.css?t=v2"/>
+    <!--<link rel="stylesheet" href="./assets/main/css/bootstrap.min.css"/>-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="./assets/main/css/owl.carousel.min.css"/>
     <link rel="stylesheet" href="./assets/main/css/owl.theme.default.min.css"/>
@@ -2149,7 +2152,6 @@ $num_rows = $result->num_rows;
     </form>
 
     <section id="featured-articles" class="">
-        <h2>Öne Çıkan Makaleler</h2>
         <h4>Toplam çıkan sonuç sayısı: <?php echo $num_rows ?></h4>
         <div class="article-grid">
 
@@ -2160,84 +2162,43 @@ $num_rows = $result->num_rows;
 <!-- end: Search bar -->
 
 
-
 <!-- start : Content-->
-<div class="home-event-container">
 
+<div class="container result-container">
+
+    <div class="row p-2 justify-content-center">
+
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-center">
+
+            <div class="card" style="width: 18rem;">
+                <img src="" class="card-img-top" alt="img">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 
 </div>
+
+
 <!-- end: Content-->
-
-
 
 
 <!--start: FOOTER -->
 <footer class="main-footer">
-    <div class="footer-menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                    <div class="footer-menu-title">ÜNİVERSİTEMİZ</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="/s/rektor">Yönetim</a></li>
-                        <li><a href="/s/universitemiz-hakkinda">Kurumsal</a></li>
-                        <li><a href="/s/bir-bakista-neu">Keşfet</a></li>
-                        <li><a href="/telefon-rehberi">Rehber</a></li>
-                    </ul>
-                    <div class="footer-menu-title">ARAŞTIRMA</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="/c/arastirma-merkezleri">Araştırma Merkezleri</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                    <div class="footer-menu-title">AKADEMİK</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="/programlar">Programlar</a></li>
-                        <li><a href="/c/fakulteler">Fakülteler</a></li>
-                        <li><a href="/c/yuksek-okullar">Yüksek Okullar</a></li>
-                        <li><a href="/c/meslek-yuksek-okullari">Meslek Yüksekokulları</a></li>
-                        <li><a href="/c/enstituler">Enstitüler</a></li>
-                        <li><a href="/c/koordinatorluklar">Koordinatörlükler</a></li>
-                        <li><a href="/akademik-takvim">Akademik Takvim</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                    <div class="footer-menu-title">İDARİ</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="/c/genel-sekreterlik">Genel Sekreterlik</a></li>
-                        <li><a href="/c/daire-baskanliklari">Daire Başkanlıkları</a>
-                        </li>
-                    </ul>
-                    <div class="footer-menu-title">KÜTÜPHANE</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="/kutuphanedokumantasyon">Kütüphane</a></li>
-                        <li><a href="/katalogtarama">Katalog Tarama</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2">
-                    <div class="footer-menu-title">HIZLI ERİŞİM</div>
-                    <ul class="footer-menu-list css_scroll">
-                        <li><a href="https://teksifre.erbakan.edu.tr">Tekşifre</a></li>
-                        <li><a href="https://obs.erbakan.edu.tr">Öğrenci Bilgi Sistemi</a></li>
-                        <li><a href="https://eposta.erbakan.edu.tr">Personel E-Posta</a></li>
-                        <li><a href="https://ogrposta.erbakan.edu.tr">Öğrenci E-Posta</a></li>
-                        <li><a href="https://topluluk.erbakan.edu.tr">Öğrenci Toplulukları</a></li>
-                        <li><a href="https://ilan.gov.tr">ilan.gov.tr</a></li>
-                        <li><a href="https://uzaktanegitim.erbakan.edu.tr/">Uzaktan Eğitim Sistemi</a></li>
-                        <li><a href="https://edogrudantemin.erbakan.edu.tr/">Doğrudan Temin</a></li>
-                        <li><a href="/telefon-rehberi">Rehber</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <a class="twitter-timeline" data-width="360" data-height="320" data-theme="light"
-                       data-tweet-limit="5" data-chrome="" href="https://twitter.com/NEUniversitesi">@NEUniversitesi</a>
-                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <div class="footer-logo">
         <img src="https://www.erbakan.edu.tr/assets/main/img/footer-logo.png">
     </div>
@@ -2606,6 +2567,17 @@ $num_rows = $result->num_rows;
 </script>
 <style>
 
+    .search-container{
+        background-image: url("./assets/images/title-bar-light-transparent.png");
+        background-color: #0593b5;
+
+    }
+
+    .result-container{
+        background: #ffffff ;
+        background-image: url("./assets/images/title-bar-light-transparent.png");
+    }
+
 
     .button-card:hover:after, .button-card.hover:after, .button-card:hover .title span.text, .button-card.hover .title span.text {
         color: #fff;
@@ -2781,7 +2753,7 @@ $num_rows = $result->num_rows;
 
 
 <script src="./assets/js/jquery-3.4.1.min.js"></script>
-<script src="./assets/js/bootstrap-3.3.7.min.js"></script>
+<!--<script src="./assets/js/bootstrap-3.3.7.min.js"></script>-->
 <script src="./assets/js/owl.carousel.min.js"></script>
 <script src="./assets/js/underscore-min.js"></script>
 <script src="./assets/js/utils.js?v=4"></script>
@@ -3004,5 +2976,9 @@ $num_rows = $result->num_rows;
     get_announcements(1);
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
