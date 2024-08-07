@@ -2099,7 +2099,7 @@ $num_rows = $result->num_rows;
 
 <!--begin: SEARCH-BAR -->
 <section id="home" class="search-container container mt-5">
-    <h2>En Güncel Bilimsel Araştırmalara Erişin</h2>
+    <h2 style="color: #ffffff; font-size: 25px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
     <form action="./neu.php" method="GET">
         <div class="row">
             <!-- Arama formu -->
@@ -2150,7 +2150,7 @@ $num_rows = $result->num_rows;
     </form>
 
     <section id="featured-articles" class="">
-        <h4>Toplam çıkan sonuç sayısı: <?php echo $num_rows ?></h4>
+        <h4 style="font-size: 15px; color: #ffffff">Toplam Sonuç: <?php echo $num_rows ?></h4>
         <div class="article-grid">
 
         </div>
@@ -2185,10 +2185,8 @@ $num_rows = $result->num_rows;
                 echo '</div>';
                 echo '</div>  </div>';
 
-
             }
         }
-
 
         ?>
 
