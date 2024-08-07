@@ -37,10 +37,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css?t=v2">
     <!-- stylesheet-->
-    <!--<link rel="stylesheet" href="./assets/main/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css"/>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="./assets/main/css/owl.carousel.min.css"/>
     <link rel="stylesheet" href="./assets/main/css/owl.theme.default.min.css"/>
@@ -2168,25 +2166,32 @@ $num_rows = $result->num_rows;
 
     <div class="row p-2 justify-content-center">
 
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-center">
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
 
-            <div class="card" style="width: 18rem;">
-                <img src="" class="card-img-top" alt="img">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
+                echo '<div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-center">';
+                echo '<div class="card text-bg-light" style="width: 18rem;">';
+                echo '<img src="./assets/images/books.png" class="card-img-top" alt="img">';
+                echo '<div class="card-body">';
+                echo '<h5 class="card-title">'.$row["chapter_title"].'</h5>';
+                echo '<p class="card-text">'.$row["author_name"].'</p></div>';
+                echo '<ul class="list-group list-group-flush">';
+                echo '<li class="list-group-item">'.$row["pub_date"].'</li>';
+                echo '</ul>';
+                echo '<div class="card-body">';
+                echo '<a href="'.$row["url"].'" class="card-link">Kitaba Git</a>';
+                echo '<a href="'.$row["pdf"].'" class="card-link">PDF</a>';
+                echo '</div>';
+                echo '</div>  </div>';
 
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
 
-        </div>
+            }
+        }
+
+
+        ?>
+
 
     </div>
 
@@ -2753,7 +2758,7 @@ $num_rows = $result->num_rows;
 
 
 <script src="./assets/js/jquery-3.4.1.min.js"></script>
-<!--<script src="./assets/js/bootstrap-3.3.7.min.js"></script>-->
+<script src="./assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/js/owl.carousel.min.js"></script>
 <script src="./assets/js/underscore-min.js"></script>
 <script src="./assets/js/utils.js?v=4"></script>
@@ -2977,8 +2982,5 @@ $num_rows = $result->num_rows;
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
 </html>
