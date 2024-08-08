@@ -68,10 +68,10 @@
                 <div class="topbar">
 
                     <div class="text-left col-xs-6 no-padding">
-                        <a href="/"
+                        <a href="./index.php"
                            style="line-height: 25px;font-size: 15px;font-weight: 600;color: #009abf;padding-right: 10px;border-right: solid 1px #ccc;margin-right: 10px;">
                             <i class="material-icons"></i></a>
-                        <a href="https://uzaktanegitim.erbakan.edu.tr/"
+                        <a href="./index.php"
                            style="line-height: 25px;font-size: 15px;font-weight: 600;color: #009abf;padding-right: 10px;border-right: solid 1px #ccc;margin-right: 10px;">
                             UZAKTAN EĞİTİM </a>
                         <a href="https://nebis.erbakan.edu.tr/"
@@ -2079,16 +2079,17 @@ if (!$connect) {
 
 $query = isset($_POST['query']) ? $_POST['query'] : '';
 $category = isset($_POST['category']) ? $_POST['category'] : 'all';
+$sdg = isset($_POST['sdg']) ? $_POST['sdg'] : '';
 
 
 // --- url den gelen veri filtreleme ---
 $columnMappings = [
-    'article' => 'chapter_title',
-    'book' => 'book_name',
-    'author' => 'author_name',
-    'publisher' => 'imprint',
-    'summary' => 'abstract',
-    'isbn' => 'ebook_isbn'
+    '1' => 'chapter_title',
+    '2' => 'book_name',
+    '3' => 'author_name',
+    '4' => 'imprint',
+    '5' => 'abstract',
+    '6' => 'ebook_isbn'
 ];
 
 $column = '';
@@ -2103,10 +2104,15 @@ if (array_key_exists($category, $columnMappings)) {
 
 $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
 
+// sdg için ayarlama kaldı
 if ($query != '') {
     if ($category == 'all') {
-        $sql .= " WHERE chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%'";
-    } else {
+        $sql .= " WHERE (chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%')";
+        if ($sdg != ''){
+            $sql .= " AND sdg LIKE '%$sdg%'";
+        }
+    }
+    else {
         $sql .= " WHERE $column LIKE '%$query%'";
     }
 }
@@ -2131,20 +2137,21 @@ $num_rows = $result->num_rows;
             <div class="col-md-4 mb-3">
                 <input type="text" id="query" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin"
                        class="form-control">
+                <div id="warningMessage" class="warning" style="color: red; font-size: 14px; margin-top: 5px; display: none">Lütfen geçerli bir değer giriniz.</div>
             </div>
             <div class="col-md-3 mb-3">
                 <select name="category" class="form-control">
-                    <option value="all">Tüm Alanlar</option>
-                    <option value="article">Makale</option>
-                    <option value="book">Kitap</option>
-                    <option value="author">Yazar</option>
-                    <option value="publisher">Yayınevi</option>
-                    <option value="summary">Özet</option>
-                    <option value="isbn">Ebook ISBN</option>
+                    <option value="0">Tüm Alanlar</option>
+                    <option value="1">Makale</option>
+                    <option value="2">Kitap</option>
+                    <option value="3">Yazar</option>
+                    <option value="4">Yayınevi</option>
+                    <option value="5">Özet</option>
+                    <option value="6">Ebook ISBN</option>
                 </select>
             </div>
             <div class="col-md-3 mb-3">
-                <select id="sdg-select" name="sdg-select" class="form-control">
+                <select id="sdg-select" name="sdg" class="form-control">
                     <option value="">SDG'ler</option>
                     <option value="1">1. Yoksulluğa Son (No Poverty)</option>
                     <option value="2">2. Açlığa Son (Zero Hunger)</option>
@@ -3006,12 +3013,33 @@ $num_rows = $result->num_rows;
 </script>
 
 <script>
-    function validateForm() {
-        var query = document.getElementById("query").value;
-        if (query.trim() === "") {
-            alert("Lütfen arama yapmak için bir anahtar kelime girin.");
-            return false; // Formun gönderilmesini durdurur
-        }
+        function containsSQL(input) {
+        var sqlPattern = /(\b(SELECT|UPDATE|DELETE|INSERT|DROP|ALTER|WHERE|AND|OR|UNION)\b|--|;|'|"|`|\b(0x[0-9A-F]+)\b)/i;
+        return sqlPattern.test(input);
+    }
+
+        function containsHTMLTags(input) {
+        var htmlTagPattern = /<[^>]*>/g;
+        return htmlTagPattern.test(input);
+    }
+
+        function validateForm() {
+        var userInput = document.getElementById("query").value;
+        var warningMessage = document.getElementById("warningMessage");
+
+        if (userInput.trim() === "") {
+        warningMessage.innerText = "Lütfen arama yapmak için bir anahtar kelime girin.";
+        warningMessage.style.display = "block";
+        return false; // Formun gönderilmesini durdurur
+    }
+
+        if (containsSQL(userInput) || containsHTMLTags(userInput)) {
+        warningMessage.innerText = "Lütfen geçerli bir değer giriniz.";
+        warningMessage.style.display = "block";
+        return false; // Formun gönderilmesini durdurur
+    }
+
+        warningMessage.style.display = "none";
         return true; // Formun gönderilmesine izin verir
     }
 </script>
