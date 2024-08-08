@@ -1577,8 +1577,8 @@
                                         </li>
                                         <li class="neusearchbar clearfix">
                                             <div class="smllogo tr_logo_style">
-                                                <a href="https://www.erbakan.edu.tr">
-                                                    <img src="https://erbakan.edu.tr/assets/main/img/logo_v2.png"
+                                                <a href="./index.php">
+                                                    <img src="./assets/main/img/logo_v2.png"
                                                          width="120" alt=""/>
                                                 </a>
                                             </div>
@@ -2083,7 +2083,6 @@ $category = isset($_POST['category']) ? $_POST['category'] : 'all';
 
 // --- url den gelen veri filtreleme ---
 $columnMappings = [
-    'all' => '*',
     'article' => 'chapter_title',
     'book' => 'book_name',
     'author' => 'author_name',
@@ -2105,7 +2104,7 @@ if (array_key_exists($category, $columnMappings)) {
 $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
 
 if ($query != '') {
-    if ($column == 'all') {
+    if ($category == 'all') {
         $sql .= " WHERE chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%'";
     } else {
         $sql .= " WHERE $column LIKE '%$query%'";
@@ -2113,6 +2112,10 @@ if ($query != '') {
 }
 
 $result = $connect->query($sql);
+
+if (!$result) {
+    die("Sorgu hatası: " . mysqli_error($connect));
+}
 
 $num_rows = $result->num_rows;
 
@@ -2122,11 +2125,11 @@ $num_rows = $result->num_rows;
 <!--begin: SEARCH-BAR -->
 <section id="home" class="search-container container mt-5">
     <h2 style="color: #ffffff; font-size: 25px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
-    <form action="index.php" method="POST">
+    <form id="searchForm" action="index.php" method="POST" onsubmit="return validateForm()">
         <div class="row">
             <!-- Arama formu -->
             <div class="col-md-4 mb-3">
-                <input type="text" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin"
+                <input type="text" id="query" name="query" placeholder="Anahtar kelime, yazar, konu veya isbn no girin"
                        class="form-control">
             </div>
             <div class="col-md-3 mb-3">
@@ -3000,6 +3003,17 @@ $num_rows = $result->num_rows;
     });
     get_announcements(1);
 
+</script>
+
+<script>
+    function validateForm() {
+        var query = document.getElementById("query").value;
+        if (query.trim() === "") {
+            alert("Lütfen arama yapmak için bir anahtar kelime girin.");
+            return false; // Formun gönderilmesini durdurur
+        }
+        return true; // Formun gönderilmesine izin verir
+    }
 </script>
 
 </body>
