@@ -2080,13 +2080,35 @@ if (!$connect) {
 $query = isset($_POST['query']) ? $_POST['query'] : '';
 $category = isset($_POST['category']) ? $_POST['category'] : 'all';
 
+
+// --- url den gelen veri filtreleme ---
+$columnMappings = [
+    'all' => '*',
+    'article' => 'chapter_title',
+    'book' => 'book_name',
+    'author' => 'author_name',
+    'publisher' => 'imprint',
+    'summary' => 'abstract',
+    'isbn' => 'ebook_isbn'
+];
+
+$column = '';
+
+if (array_key_exists($category, $columnMappings)) {
+
+    $column = $columnMappings[$category];
+
+}
+
+
+
 $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
 
 if ($query != '') {
-    if ($category == 'all') {
+    if ($column == 'all') {
         $sql .= " WHERE chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%'";
     } else {
-        $sql .= " WHERE $category LIKE '%$query%'";
+        $sql .= " WHERE $column LIKE '%$query%'";
     }
 }
 
@@ -2110,12 +2132,12 @@ $num_rows = $result->num_rows;
             <div class="col-md-3 mb-3">
                 <select name="category" class="form-control">
                     <option value="all">Tüm Alanlar</option>
-                    <option value="chapter_title">Makale</option>
-                    <option value="book_name">Kitap</option>
-                    <option value="author_name">Yazar</option>
-                    <option value="imprint">Yayınevi</option>
-                    <option value="abstract">Özet</option>
-                    <option value="ebook_isbn">Ebook ISBN</option>
+                    <option value="article">Makale</option>
+                    <option value="book">Kitap</option>
+                    <option value="author">Yazar</option>
+                    <option value="publisher">Yayınevi</option>
+                    <option value="summary">Özet</option>
+                    <option value="isbn">Ebook ISBN</option>
                 </select>
             </div>
             <div class="col-md-3 mb-3">
