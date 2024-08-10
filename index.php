@@ -2082,6 +2082,30 @@ $category = isset($_POST['category']) ? $_POST['category'] : '0'; // Varsayılan
 $sdg = isset($_POST['sdg']) ? $_POST['sdg'] : '';
 
 
+// Beklenen kategori değerleri
+$validCategories = ['0', '1', '2', '3', '4', '5', '6'];
+
+// Beklenen SDG değerleri
+$validSdgs = range(1, 17);
+
+// Kategori ve SDG değerlerini doğrula
+if (!ctype_digit($category) || !in_array($category, $validCategories)) {
+    die("Geçersiz kategori değeri.");
+}
+
+if ($sdg != '' && (!ctype_digit($sdg) || !in_array($sdg, $validSdgs))) {
+    die("Geçersiz SDG değeri.");
+}
+
+// SQL enjeksiyonlarından korunmak için query değerini temizle
+$query = mysqli_real_escape_string($connect, $query);
+
+// HTML etiketlerinden arındırmak için strip_tags kullanımı
+$query = strip_tags($query);
+
+
+
+
 // --- url den gelen veri filtreleme ---
 $columnMappings = [
     '1' => 'chapter_title',
@@ -2092,54 +2116,64 @@ $columnMappings = [
     '6' => 'ebook_isbn'
 ];
 
-$column = '';
-
-if (array_key_exists($category, $columnMappings)) {
-
-    $column = $columnMappings[$category];
-
-}
-
-
-
 $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf FROM chapters";
+$conditions = [];
+$params = [];
+$types = '';
 
-// sdg için ayarlama kaldı
 if ($query != '') {
     if ($category == '0') {
-        $sql .= " WHERE (chapter_title LIKE '%$query%' 
-            OR author_name LIKE '%$query%' 
-            OR book_name LIKE '%$query%' 
-            OR imprint LIKE '%$query%' 
-            OR ebook_isbn LIKE '%$query%' 
-            OR abstract LIKE '%$query%')";
-    }
-    else {
-        $sql .= " WHERE $column LIKE '%$query%'";
-    }
-    if ($sdg != '') {
-        $sql .= " AND sdg LIKE '%$sdg%'";
+        $conditions[] = "(chapter_title LIKE ? 
+            OR author_name LIKE ? 
+            OR book_name LIKE ? 
+            OR imprint LIKE ? 
+            OR ebook_isbn LIKE ? 
+            OR abstract LIKE ?)";
+        $types .= 'ssssss';
+        for ($i = 0; $i < 6; $i++) {
+            $params[] = "%$query%";
+        }
+    } else if (isset($columnMappings[$category])) {
+        $conditions[] = "{$columnMappings[$category]} LIKE ?";
+        $types .= 's';
+        $params[] = "%$query%";
     }
 }
-elseif ($sdg != '') {
-    // Eğer sadece SDG seçilmişse
-    $sql .= " WHERE sdg LIKE '%$sdg%'";
+
+if ($sdg != '') {
+    $conditions[] = "sdg LIKE ?";
+    $types .= 's';
+    $params[] = "%$sdg%";
 }
 
+if (!empty($conditions)) {
+    $sql .= " WHERE " . implode(' AND ', $conditions);
+}
 
-$result = $connect->query($sql);
+$stmt = $connect->prepare($sql);
+
+// Parametreleri bağlama
+if ($types) {
+    $stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
-    die("Sorgu hatası: " . mysqli_error($connect));
+    die("Sorgu hatası: " . $connect->error);
 }
 
 $num_rows = $result->num_rows;
+
+$stmt->close();
+$connect->close();
 
 ?>
 
 
 <!--begin: SEARCH-BAR -->
-<section id="home" class="search-container container mt-5">
+<section id="home" class="search-container container mt-5 rounded">
     <h2 style="color: #ffffff; font-size: 25px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
     <form id="searchForm" action="index.php" method="POST" onsubmit="return validateForm()">
         <div class="row">
@@ -2204,7 +2238,7 @@ $num_rows = $result->num_rows;
 
 <!-- start : Content-->
 
-<div class="container result-container">
+<div class="container result-container mt-4">
 
     <div class="row p-2 justify-content-center">
 
