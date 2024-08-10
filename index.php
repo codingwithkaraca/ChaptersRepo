@@ -2078,7 +2078,7 @@ if (!$connect) {
 
 
 $query = isset($_POST['query']) ? $_POST['query'] : '';
-$category = isset($_POST['category']) ? $_POST['category'] : 'all';
+$category = isset($_POST['category']) ? $_POST['category'] : '0'; // Varsayılan olarak 'Tüm kategoriler'
 $sdg = isset($_POST['sdg']) ? $_POST['sdg'] : '';
 
 
@@ -2106,16 +2106,26 @@ $sql = "SELECT id, chapter_title, author_name, book_name, edition, pub_date, imp
 
 // sdg için ayarlama kaldı
 if ($query != '') {
-    if ($category == 'all') {
-        $sql .= " WHERE (chapter_title LIKE '%$query%' OR author_name LIKE '%$query%' OR book_name LIKE '%$query%' OR imprint LIKE '%$query%' OR ebook_isbn LIKE '%$query%' OR abstract LIKE '%$query%')";
-        if ($sdg != ''){
-            $sql .= " AND sdg LIKE '%$sdg%'";
-        }
+    if ($category == '0') {
+        $sql .= " WHERE (chapter_title LIKE '%$query%' 
+            OR author_name LIKE '%$query%' 
+            OR book_name LIKE '%$query%' 
+            OR imprint LIKE '%$query%' 
+            OR ebook_isbn LIKE '%$query%' 
+            OR abstract LIKE '%$query%')";
     }
     else {
         $sql .= " WHERE $column LIKE '%$query%'";
     }
+    if ($sdg != '') {
+        $sql .= " AND sdg LIKE '%$sdg%'";
+    }
 }
+elseif ($sdg != '') {
+    // Eğer sadece SDG seçilmişse
+    $sql .= " WHERE sdg LIKE '%$sdg%'";
+}
+
 
 $result = $connect->query($sql);
 
