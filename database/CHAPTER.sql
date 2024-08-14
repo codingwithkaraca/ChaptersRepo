@@ -65,6 +65,77 @@ ALTER TABLE `chapters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/* -- TESTLER -- */
+
+
+/* TEST 1: sadece makale isminde arama */
+SELECT * FROM chapters WHERE chapter_title LIKE '%Climate%';
+
+
+/* TEST 2: sadece kitap isminde arama */
+SELECT * FROM chapters WHERE book_name LIKE '%Carbon%';
+
+
+/* TEST 3: sadece yazar isminde arama */
+SELECT * FROM chapters WHERE chapters.author_name LIKE '%Peter%';
+
+
+/* TEST 4: sadece yayınevi isminde arama */
+SELECT * FROM chapters WHERE chapters.imprint LIKE '%Apple%';
+
+
+/* TEST 5: sadece özette arama */
+SELECT * FROM chapters WHERE chapters.abstract LIKE '%Apple%';
+
+
+/* TEST 6: sadece isbn no arama */
+SELECT * FROM chapters WHERE chapters.ebook_isbn LIKE '%9781315267302%';
+
+
+/* TEST 7: Tüm alanlarda bir kelime arama */
+SELECT *
+FROM chapters
+WHERE chapter_title LIKE '%Door%'
+   OR author_name LIKE '%Door%'
+   OR book_name LIKE '%Door%'
+   OR imprint LIKE '%Door%'
+   OR ebook_isbn LIKE '%Door%'
+   OR abstract LIKE '%Door%';
+
+
+/* queryden gelen metini sdg den gelen değer ile makale isminde de arama */
+SELECT * FROM CHAPTERS.chapters WHERE chapter_title LIKE '%Soil%' AND sdg LIKE '%7%';
+
+
+/* kullanıcının aradığı kelime ve sdg de seçmiş olduğu numarada geçenler */
+SELECT * FROM CHAPTERS.chapters
+WHERE sdg= '11'
+  AND (
+    chapter_title LIKE '%Car%'
+        OR author_name LIKE '%Car%'
+        OR book_name LIKE '%Car%'
+        OR imprint LIKE '%Car%'
+        OR ebook_isbn LIKE '%Car%'
+        OR abstract LIKE '%Car%'
+    );
+
+
+/* Kullanıcının, girilen değeri yazar isminde ve sdg de geçenleri bulması */
+SELECT id, chapter_title, author_name, book_name, edition, pub_date, imprint, pages, ebook_isbn, sdg, abstract, url, cover_img, pdf
+FROM CHAPTERS.chapters
+WHERE chapters.author_name LIKE '%peter%'
+  AND sdg = '17';
+
+
+/* Tablodaki sdg sütununda bulunan "_" leri kaldırma*/
+UPDATE CHAPTERS.chapters
+SET sdg = REPLACE(sdg, '_', '');
+
+
+/* kullanıcının girdiği veriyi makale isminde arama ve
+   kullanıcın seçtiği sdg değerinde arama(sdg sütunundaki virgüllü "12,13,14" değerlerde de arama)  */
+SELECT * FROM CHAPTERS.chapters
+WHERE
+    chapters.chapter_title LIKE '%a%'
+  AND FIND_IN_SET('17', sdg);
+
