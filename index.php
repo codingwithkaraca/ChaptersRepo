@@ -2068,7 +2068,7 @@ $database = "CHAPTERS";
 $username = "root";
 $password = "";
 
-//MySQL veritabanına bağlanma
+// MySQL veritabanına bağlanma
 $connect = mysqli_connect($host, $username, $password, $database);
 
 // Bağlantı hatası kontrolü
@@ -2101,9 +2101,7 @@ if ($sdg != '' && (!ctype_digit($sdg) || !in_array($sdg, $validSdgs))) {
 $query = mysqli_real_escape_string($connect, $query);
 
 // HTML etiketlerinden arındırmak için strip_tags kullanımı
-$query = strip_tags($query);
-
-
+$query = trim(strip_tags($query));
 
 
 // --- url den gelen veri filtreleme ---
@@ -2141,9 +2139,9 @@ if ($query != '') {
 }
 
 if ($sdg != '') {
-    $conditions[] = "sdg LIKE ?";
+    $conditions[] = "FIND_IN_SET(?, sdg)";
     $types .= 's';
-    $params[] = "%$sdg%";
+    $params[] = $sdg;
 }
 
 if (!empty($conditions)) {
@@ -2170,6 +2168,7 @@ $stmt->close();
 $connect->close();
 
 ?>
+
 
 
 <!--begin: SEARCH-BAR -->
