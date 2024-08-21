@@ -2170,8 +2170,7 @@ $connect->close();
 ?>
 
 <div style="background-color: rgb(74,163,197);" class="container-fluid d-flex justify-content-end">
-    <a href="" class="btn btn-primary rounded-pill px-4 m-2">Giriş Yap</a>
-    <a href="" class="btn btn-primary rounded-pill px-4 m-2">Kayıt Ol</a>
+    <a href="./login.html" class="btn btn-primary rounded-pill px-4 m-2">Giriş Yap</a>
 </div>
 
 <!--begin: SEARCH-BAR -->
