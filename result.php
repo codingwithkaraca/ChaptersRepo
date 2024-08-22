@@ -1,6 +1,4 @@
 <?php
-
-
 // Veritabanı bağlantısı için gerekli bilgiler
 $servername = "localhost"; // Veritabanı sunucusu
 $dbname = "CHAPTERS"; // Veritabanı adı
@@ -21,27 +19,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tckno = $_POST['tckno'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Kullanıcının tckno ve password bilgilerini veritabanında arıyoruz
-    $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $tckno, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // TC Kimlik No 11 haneli mi kontrol ediliyor
+    if (strlen($tckno) == 11) {
+        // Kullanıcının tckno ve password bilgilerini veritabanında arıyoruz
+        $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $tckno, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        // Giriş başarılı
-        echo "Giriş başarılı. Hoş geldiniz!";
-        // Burada kullanıcıyı bir anasayfaya veya panel sayfasına yönlendirebilirsiniz
+        if ($result->num_rows > 0) {
+            // Giriş başarılı
+            echo "Giriş başarılı. Hoş geldiniz!";
+            // Burada kullanıcıyı bir anasayfaya veya panel sayfasına yönlendirebilirsiniz
+        } else {
+            // Giriş başarısız
+            echo "Geçersiz TC Kimlik No veya Tek Şifre. Lütfen tekrar deneyin.";
+        }
+
+        // Veritabanı bağlantısını kapatıyoruz
+        $stmt->close();
     } else {
-        // Giriş başarısız
-        echo "Geçersiz TC Kimlik No veya Tek Şifre. Lütfen tekrar deneyin.";
+        // TC Kimlik No 11 haneli değilse hata mesajı göster
+        echo "TC Kimlik No 11 haneli olmalıdır.";
     }
-
-    // Veritabanı bağlantısını kapatıyoruz
-    $stmt->close();
 }
 
 $conn->close();
-
-
 ?>
+

@@ -9,21 +9,28 @@
 
     <title>Signin Template for Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/bootstrap-4/dist/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
     <link href="assets/css/login.css" rel="stylesheet">
 
     <!-- hCaptcha -->
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
+    <style>
+        /* Error message styling */
+        #error-message {
+            color: red;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="text-center">
-<form class="form-signin" action="result.php" method="POST">
+
+<form class="form-signin" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
     <img class="mb-4" src="./assets/main/img/logo_v2.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Giriş Yap</h1>
     <label for="inputTC" class="sr-only">TC Kimlik No</label>
@@ -39,8 +46,59 @@
             <input type="checkbox" value="remember-me"> Beni Hatırla
         </label>
     </div>
+
+    <!-- Error message div -->
+    <div id="error-message">
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Formdan gelen verileri al
+            $tckno = $_POST['tckno'];
+            $password = $_POST['password'];
+
+            // TC Kimlik No doğrulaması
+            if (strlen($tckno) !== 11) {
+                echo "TC Kimlik No 11 haneli olmalıdır.";
+            } else {
+                // Veritabanı bağlantısı
+                $servername = "localhost";
+                $username = "root";
+                $password_db = ""; // Veritabanı şifreniz
+                $dbname = "CHAPTERS"; // Veritabanı adınızı girin
+
+                // Bağlantıyı oluştur
+                $conn = new mysqli($servername, $username, $password_db, $dbname);
+
+                // Bağlantıyı kontrol et
+                if ($conn->connect_error) {
+                    die("Bağlantı hatası: " . $conn->connect_error);
+                }
+
+                // SQL sorgusu ile kullanıcıyı kontrol et
+                $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ss", $tckno, $password);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    // Giriş başarılı, admin paneline yönlendir
+                    header("Location: ./admin/static/index.html");
+                    exit();
+                } else {
+                    echo "Kullanıcı adı veya şifre hatalı.";
+                }
+
+                // Bağlantıyı kapat
+                $stmt->close();
+                $conn->close();
+            }
+        }
+        ?>
+    </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş Yap</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2024</p>
 </form>
+
 </body>
 </html>
