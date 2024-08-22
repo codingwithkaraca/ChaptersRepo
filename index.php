@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="tr" prefix="og: http://ogp.me/ns#">
+
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kütüphane Yönetim Sistemi</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <!-- İçerik burada -->
+</body>
+</html>
+
 <head>
     <meta charset="UTF-8">
     <title>Necmettin Erbakan Üniversitesi</title>
@@ -55,6 +68,9 @@
     <script src="./assets/js/jwplayer/jwplayer.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -3072,7 +3088,7 @@ $connect->close();
 
         if (userInput.trim() === "") {
         warningMessage.innerText = "Lütfen arama yapmak için bir anahtar kelime girin.";
-        warningMessage.style.display = "block";
+        warningMessagenew.style.display = "block";
         return false; // Formun gönderilmesini durdurur
     }
 
