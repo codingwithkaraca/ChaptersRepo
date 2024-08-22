@@ -68,10 +68,10 @@
                 <div class="topbar">
 
                     <div class="text-left col-xs-6 no-padding">
-                        <a href="./index.php"
+                        <a href="search.php"
                            style="line-height: 25px;font-size: 15px;font-weight: 600;color: #009abf;padding-right: 10px;border-right: solid 1px #ccc;margin-right: 10px;">
                             <i class="material-icons"></i></a>
-                        <a href="./index.php"
+                        <a href="search.php"
                            style="line-height: 25px;font-size: 15px;font-weight: 600;color: #009abf;padding-right: 10px;border-right: solid 1px #ccc;margin-right: 10px;">
                             UZAKTAN EĞİTİM </a>
                         <a href="https://nebis.erbakan.edu.tr/"
@@ -1577,7 +1577,7 @@
                                         </li>
                                         <li class="neusearchbar clearfix">
                                             <div class="smllogo tr_logo_style">
-                                                <a href="./index.php">
+                                                <a href="search.php">
                                                     <img src="./assets/main/img/logo_v2.png"
                                                          width="120" alt=""/>
                                                 </a>
@@ -2166,7 +2166,7 @@ $connect->close();
 <!--begin: SEARCH-BAR -->
 <section id="home" class="search-container container mt-5 rounded">
     <h2 style="color: #ffffff; font-size: 25px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
-    <form id="searchForm" action="index.php" method="POST" onsubmit="return validateForm()">
+    <form id="searchForm" action="search.php" method="POST" onsubmit="return validateForm()">
         <div class="row">
             <!-- Arama formu -->
             <div class="col-md-4 mb-3">
