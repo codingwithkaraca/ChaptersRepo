@@ -2062,19 +2062,9 @@
 
 <?php
 
-// Veritabanı bağlantı bilgilerini tanımlama
-$host = "localhost";
-$database = "CHAPTERS";
-$username = "root";
-$password = "";
+require 'db_connection.php';
 
-// MySQL veritabanına bağlanma
-$connect = mysqli_connect($host, $username, $password, $database);
-
-// Bağlantı hatası kontrolü
-if (!$connect) {
-    die("Bağlantı hatası :" . mysqli_connect_error());
-}
+$connect = dbConnect();
 
 
 $query = isset($_POST['query']) ? $_POST['query'] : '';

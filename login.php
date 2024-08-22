@@ -1,3 +1,12 @@
+<?php
+
+require 'db_connection.php';
+
+$connect = dbConnect();
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -59,23 +68,10 @@
             if (strlen($tckno) !== 11) {
                 echo "TC Kimlik No 11 haneli olmalıdır.";
             } else {
-                // Veritabanı bağlantısı
-                $servername = "localhost";
-                $username = "root";
-                $password_db = ""; // Veritabanı şifreniz
-                $dbname = "CHAPTERS"; // Veritabanı adınızı girin
-
-                // Bağlantıyı oluştur
-                $conn = new mysqli($servername, $username, $password_db, $dbname);
-
-                // Bağlantıyı kontrol et
-                if ($conn->connect_error) {
-                    die("Bağlantı hatası: " . $conn->connect_error);
-                }
 
                 // SQL sorgusu ile kullanıcıyı kontrol et
                 $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
-                $stmt = $conn->prepare($sql);
+                $stmt = $connect->prepare($sql);
                 $stmt->bind_param("ss", $tckno, $password);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -90,7 +86,7 @@
 
                 // Bağlantıyı kapat
                 $stmt->close();
-                $conn->close();
+                $connect->close();
             }
         }
         ?>
