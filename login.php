@@ -1,12 +1,3 @@
-<?php
-
-require 'db_connection.php';
-
-$connect = dbConnect();
-
-
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -58,18 +49,24 @@ $connect = dbConnect();
 
     <!-- Error message div -->
     <div id="error-message">
+
+
         <?php
+        session_start();
+
+        require 'db_connection.php';
+
+        $connect = dbConnect();
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Formdan gelen verileri al
+
+            // buraya sadece int türünde tck no gelmeli bunu unutma
             $tckno = $_POST['tckno'];
             $password = $_POST['password'];
 
-            // TC Kimlik No doğrulaması
             if (strlen($tckno) !== 11) {
                 echo "TC Kimlik No 11 haneli olmalıdır.";
             } else {
-
-                // SQL sorgusu ile kullanıcıyı kontrol et
                 $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
                 $stmt = $connect->prepare($sql);
                 $stmt->bind_param("ss", $tckno, $password);
@@ -77,19 +74,27 @@ $connect = dbConnect();
                 $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
-                    // Giriş başarılı, admin paneline yönlendir
-                    header("Location: ./admin/static/index.html");
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['tckno'] = $tckno;
+
+                    // "Beni Hatırla" checkbox'ı işaretli ise cookie ayarla
+                    if (isset($_POST['remember-me'])) {
+                        setcookie('tckno', $tckno, time() + (86400 * 10), "/"); // 10 günlük cookie
+                        setcookie('password', $password, time() + (86400 * 10), "/");
+                    }
+
+                    header("Location: ./search.php");
                     exit();
                 } else {
                     echo "Kullanıcı adı veya şifre hatalı.";
                 }
 
-                // Bağlantıyı kapat
                 $stmt->close();
                 $connect->close();
             }
         }
         ?>
+
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş Yap</button>
