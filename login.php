@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Login Library</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="./assets/bootstrap-4/dist/css/bootstrap.min.css">
@@ -53,38 +53,45 @@
 
         <?php
         session_start();
-
         require 'db_connection.php';
 
         $connect = dbConnect();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            // buraya sadece int türünde tck no gelmeli bunu unutma
             $tckno = $_POST['tckno'];
             $password = $_POST['password'];
 
-            if (strlen($tckno) !== 11) {
-                echo "TC Kimlik No 11 haneli olmalıdır.";
+            // TCK No kontrolü
+            if (!ctype_digit($tckno) || strlen($tckno) !== 11) {
+                echo "TC Kimlik No 11 haneli ve sadece rakamlardan oluşmalıdır.";
             } else {
-                $sql = "SELECT * FROM users WHERE tckno = ? AND password = ?";
+                // SQL sorgusu
+                $sql = "SELECT * FROM users WHERE tckno = ?";
                 $stmt = $connect->prepare($sql);
-                $stmt->bind_param("ss", $tckno, $password);
+                $stmt->bind_param("i", $tckno);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION['tckno'] = $tckno;
+                    $row = $result->fetch_assoc();
 
-                    // "Beni Hatırla" checkbox'ı işaretli ise cookie ayarla
-                    if (isset($_POST['remember-me'])) {
-                        setcookie('tckno', $tckno, time() + (86400 * 10), "/"); // 10 günlük cookie
-                        setcookie('password', $password, time() + (86400 * 10), "/");
+                    // Düz metin şifre kontrolü (hash kullanmıyoruz)
+                    if ($password === $row['password']) {
+                        $_SESSION['loggedin'] = true;
+                        $_SESSION['tckno'] = $tckno;
+
+                        // "Beni Hatırla" checkbox'ı işaretli ise cookie ayarla
+                        if (isset($_POST['remember-me'])) {
+                            setcookie('tckno', $tckno, time() + (86400 * 10), "/"); // 10 günlük cookie
+                            setcookie('password', $password, time() + (86400 * 10), "/");
+                        }
+
+                        header("Location: ./search.php");
+                        exit();
+                    } else {
+                        echo "Kullanıcı adı veya şifre hatalı.";
                     }
-
-                    header("Location: ./search.php");
-                    exit();
                 } else {
                     echo "Kullanıcı adı veya şifre hatalı.";
                 }
@@ -94,6 +101,8 @@
             }
         }
         ?>
+
+
 
     </div>
 

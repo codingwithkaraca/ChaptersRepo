@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Kullanıcı giriş yapmış mı kontrol et
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Giriş yapılmamışsa, giriş sayfasına yönlendir
+    header("Location: login.php");
+    exit();
+}
+
+// Giriş yapılmışsa, sayfanın geri kalanı yüklenir
+?>
+
 <!DOCTYPE html>
 <html lang="tr" prefix="og: http://ogp.me/ns#">
 <head>
