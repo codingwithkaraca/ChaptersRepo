@@ -2173,7 +2173,7 @@ $connect->close();
 ?>
 
 <div style="background-color: rgb(74,163,197);" class="container-fluid d-flex justify-content-end">
-    <a href="./login.php" class="btn btn-primary rounded-pill px-4 m-2">Çıkış Yap</a>
+    <a href="./logout.php" class="btn btn-primary rounded-pill px-4 m-2">Çıkış Yap</a>
 </div>
 
 <!--begin: SEARCH-BAR -->
