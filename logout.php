@@ -17,6 +17,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Giriş sayfasına yönlendir
-header("Location: index.php");
+header("Location: deneme.php");
 exit();
 ?>
