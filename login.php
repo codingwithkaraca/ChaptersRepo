@@ -26,11 +26,49 @@
             text-align: center;
         }
     </style>
+
+
+    <script>
+        // SQL injection için inputu kontrol eden fonksiyon
+        function containsSQL(input) {
+            var sqlPattern = /(\b(SELECT|UPDATE|DELETE|INSERT|DROP|ALTER|WHERE|AND|OR|UNION)\b|--|;|'|"|`|\b(0x[0-9A-F]+)\b)/i;
+            return sqlPattern.test(input);
+        }
+
+        // HTML etiketlerini kontrol eden fonksiyon
+        function containsHTMLTags(input) {
+            var htmlTagPattern = /<[^>]*>/g;
+            return htmlTagPattern.test(input);
+        }
+
+        // Form doğrulaması
+        function validateForm() {
+            var tckno = document.getElementById("inputTC").value;
+            var password = document.getElementById("inputPassword").value;
+            var warningMessage = document.getElementById("error-message");
+
+            if (tckno.trim() === "" || password.trim() === "") {
+                warningMessage.innerText = "Lütfen tüm alanları doldurun.";
+                warningMessage.style.display = "block";
+                return false; // Formun gönderilmesini durdurur
+            }
+
+            // TC Kimlik No için SQL ve HTML tag kontrolü
+            if (containsSQL(tckno) || containsHTMLTags(tckno)) {
+                warningMessage.innerText = "Lütfen geçerli bir TC Kimlik No giriniz.";
+                warningMessage.style.display = "block";
+                return false; // Formun gönderilmesini durdur
+            }
+
+            warningMessage.style.display = "none";
+            return true; // Formun gönderilmesine izin verir
+        }
+    </script>
 </head>
 
 <body class="text-center">
 
-<form class="form-signin" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+<form class="form-signin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" onsubmit="return validateForm();">
     <img class="mb-4" src="./assets/main/img/logo_v2.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Giriş Yap</h1>
     <label for="inputTC" class="sr-only">TC Kimlik No</label>
@@ -49,8 +87,6 @@
 
     <!-- Error message div -->
     <div id="error-message">
-
-
         <?php
         session_start();
         require 'db_connection.php';
@@ -59,32 +95,50 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $tckno = $_POST['tckno'];
-            $password = $_POST['password'];
+            // Kullanıcının girdiği değeri temizleyen fonksiyonlar
+            function cleanInput($input, $connect) {
+                // SQL enjeksiyonlarına karşı koruma
+                $input = mysqli_real_escape_string($connect, $input);
 
-            // TCK No kontrolü
-            if (!ctype_digit($tckno) || strlen($tckno) !== 11) {
-                echo "TC Kimlik No 11 haneli ve sadece rakamlardan oluşmalıdır.";
+                // Sadece TC Kimlik No için HTML etiketlerinden arındırmak için strip_tags kullanımı
+                $input = trim(strip_tags($input));
+
+                return $input;
+            }
+
+            // Tehlikeli karakter kontrolü (Sadece TC Kimlik No için)
+            function containsDangerousChars($input) {
+                return preg_match('/[<>{}"\'%;()&+]/', $input);
+            }
+
+            $tckno = cleanInput($_POST['tckno'], $connect);
+            $password = mysqli_real_escape_string($connect, $_POST['password']); // Şifreyi SQL injectiona karşı temizledik
+
+            if (empty($tckno) || empty($password)) {
+                echo "Lütfen tüm alanları doldurun.";
+            } elseif (containsDangerousChars($tckno)) {
+                echo "TC Kimlik No geçersiz karakter içeriyor.";
+            } elseif (!ctype_digit($tckno) || strlen($tckno) !== 11) {
+                echo "TC Kimlik No 11 haneli olmalıdır.";
             } else {
-                // SQL sorgusu
+                // SQL enjeksiyonuna karşı prepared statements kullanımı
                 $sql = "SELECT * FROM users WHERE tckno = ?";
                 $stmt = $connect->prepare($sql);
-                $stmt->bind_param("i", $tckno);
+                $stmt->bind_param("s", $tckno);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
 
-                    // Düz metin şifre kontrolü (hash kullanmıyoruz)
                     if ($password === $row['password']) {
                         $_SESSION['loggedin'] = true;
                         $_SESSION['tckno'] = $tckno;
 
                         // "Beni Hatırla" checkbox'ı işaretli ise cookie ayarla
                         if (isset($_POST['remember-me'])) {
-                            setcookie('tckno', $tckno, time() + (86400 * 10), "/"); // 10 günlük cookie
-                            setcookie('password', $password, time() + (86400 * 10), "/");
+                            setcookie('tckno', $tckno, time() + (86400 * 1), "/"); // 1 günlük cookie
+                            setcookie('password', $password, time() + (86400 * 1), "/");
                         }
 
                         header("Location: ./search.php");
@@ -101,9 +155,6 @@
             }
         }
         ?>
-
-
-
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş Yap</button>
