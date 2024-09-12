@@ -2100,7 +2100,7 @@ if ($sdg != '' && (!ctype_digit($sdg) || !in_array($sdg, $validSdgs))) {
     die("Geçersiz SDG değeri.");
 }
 
-// SQL enjeksiyonlarından korunmak için query değerini temizle
+// SQL injection korunmak için query değerini temizle
 $query = mysqli_real_escape_string($connect, $query);
 
 // HTML etiketlerinden arındırmak için strip_tags kullanımı
@@ -2178,7 +2178,7 @@ $connect->close();
 
 <!--begin: SEARCH-BAR -->
 <section id="home" class="search-container container mt-5 rounded">
-    <h2 style="color: #ffffff; font-size: 25px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
+    <h2 style="color: #ffffff; font-size: 18px; padding: 10px"; >En Güncel Bilimsel Araştırmalara Erişin</h2>
     <form id="searchForm" action="search.php" method="POST" onsubmit="return validateForm()">
         <div class="row">
             <!-- Arama formu -->
